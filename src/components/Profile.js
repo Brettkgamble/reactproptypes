@@ -16,14 +16,25 @@ class ProfileComponent extends Component {
 }
 
 ProfileComponent.propTypes = {
-    name: PropTypes.string,
+    // name: PropTypes.string,
+    // name: PropTypes.oneOf(['Francis', 'James', 'Steve']),
+    name: PropTypes.oneOfType([
+        PropTypes.string,
+        PropTypes.number,
+        PropTypes.oneOf(['Francis', 'James', 'Steve'])
+    ]),
     lastname: PropTypes.string,
     age: PropTypes.number,
-    hobbies: PropTypes.array,
+    hobbies: PropTypes.arrayOf(PropTypes.string),
     spanish: PropTypes.bool,
     message: PropTypes.func,
     car: PropTypes.object,
-    mother: PropTypes.string
+    // mother: PropTypes.string.isRequired
+    mother: function(props, propName, componentName){
+        if(props[propName] !== 'Jane') {
+            return new Error(`The name ${props[propName]} is incorrect`)
+        }
+    }
 }
 
 export default ProfileComponent;
